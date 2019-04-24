@@ -5,7 +5,7 @@ class Balance extends Component {
     const { playerBalance, hasBalance } = this.props
     return(
       <header className="Balance">
-        <p>Balance <b className={hasBalance ? "Balance__has-balance" : "Balance__has-no-balance"}>${this.props.playerBalance}</b></p>
+        <p>Your Balance <b className={hasBalance ? "Balance__has-balance" : "Balance__has-no-balance"}>${this.props.playerBalance}</b></p>
       </header>
     );
   }

@@ -10,28 +10,27 @@ class SlotMachine extends Component {
     super(props)
     this.state = {
       isRunning: false,
-      playerBalance: 1,
+      playerBalance: 5,
     }
 
     this.startRunning = this.startRunning.bind(this);
+    this.finishRunning = this.finishRunning.bind(this);
   }
 
   startRunning() {
     const { playerBalance } = this.state;
-
-    console.log("CallBack Called, START SPINNING!! :D");
-    if(playerBalance >= 1){
-      this.setState({
-        playerBalance: (playerBalance - 1),
-        isRunning: true,
-      });
-    } else {
-      console.log("Current Balance is:", "%c", "background-color: orange; color: white;")
-    }
+    this.setState({
+      playerBalance: (playerBalance - 1),
+      isRunning: true,
+    });
   }
 
-  finishRunning() {
-
+  finishRunning(reel) {
+    console.log(reel)
+     this.setState({
+       shouldSpin: false,
+       isRunning: false,
+     })
   }
 
   hasBalance() {
@@ -52,8 +51,8 @@ class SlotMachine extends Component {
     let reels = [];
     let delay = 0;
     for(let s = 0; s < size; s++) {
-      reels.push(<Reel key={s} lines= {5} spinDelay={delay}/>);
-      delay = delay + 0.5;
+      reels.push(<Reel key={s} lines={5} spinDelay={delay} shouldSpin={this.isRunning()} finishRunning={this.finishRunning}/>);
+      delay = delay + 500;
     }
     return reels
   }
