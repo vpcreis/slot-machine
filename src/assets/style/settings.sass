@@ -1,0 +1,21 @@
+// Colors
+$dark: #282c34
+$grey: #94A3B9
+$white: #FFFFFF
+
+$green: #38C79B
+$yellow: #FA8E23
+$red: #E44826
+
+// Color object
+$colors: (white: $white, green: $green, yellow: $yellow, red: $red, grey: $grey, dark: $dark)
+
+// Hover lighten amount
+$amount: 15%
+
+@function color($key)
+  @if map-has-key($colors, $key)
+    @return map-get($colors, $key)
+
+  @warn "Unknown `#{$key}` in $colors."
+  @return null

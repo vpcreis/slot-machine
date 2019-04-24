@@ -7,9 +7,10 @@ class Reel extends Component {
     this.state = {
       isSpinning: false,
       symbols: this.props.symbols || ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"],
-      lines: this.props.lines || 5,
-      image: this.props.image || null,
       spinningTime: this.props.spinningTime || 2000,
+      // lines: this.props.lines || 5,
+      // image: this.props.image || null,
+      // spinDelay: 0
     }
   }
 
@@ -18,13 +19,15 @@ class Reel extends Component {
   getBottomSlot(){}
 
   startSpinning(){
+    const { state: { spinningTime } } = this;
+
     setTimeout(function(){
       console.log("Hello");
-    }, this.state.spinningTime);
+    }, spinningTime);
   }
 
-  finishSpinning(){}
-  setSymbolToPosition(){}
+  finishSpinning() {}
+  setSymbolToPosition() {}
 
   isSpinning(){
     return this.state.isSpinning
@@ -35,9 +38,10 @@ class Reel extends Component {
   }
 
   render() {
+    const { state: { symbols } } = this;
     return (
       <div className="Reel">
-      <h2>{this.state.symbols[this.setRandomStartUp()]} </h2>
+      <p>{symbols[this.setRandomStartUp()]} </p>
       </div>
     );
   }

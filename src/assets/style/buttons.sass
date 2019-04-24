@@ -1,0 +1,30 @@
+.button
+  display: inline-block
+  padding: 10px 25px
+  transition: 0.3s all
+  border-radius: 4px
+  border 1x solid $dark
+  border-style: unset
+  margin: 5px
+  color: $white
+  cursor: pointer
+  &:disabled
+    cursor: not-allowed
+  
+// ##############  Colors  ##############
+@each $name, $color in $colors
+  .button--#{$name}
+    background-color: color($name)
+    &:hover
+      background-color: lighten(color($name), $amount)
+      color: $white
+      text-decoration: none
+
+  @if $name == white
+    @debug $name
+    .button--#{$name}
+      color: color(dark)!important
+      &:hover,
+      &:focus
+        background-color: lighten(color($name), $amount) !important
+        color: lighten(color(dark), $amount) !important
