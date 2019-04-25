@@ -5,6 +5,8 @@ import Reel from './Reel';
 import Balance from './Balance';
 import Button from '../../shared/userInterface/Button';
 
+import ReelImage from '../../../images/Reel_142_605.png'
+
 class SlotMachine extends Component {
   constructor(props){
     super(props)
@@ -27,6 +29,7 @@ class SlotMachine extends Component {
 
   finishRunning(reel) {
     console.log(reel)
+    // Need condition to get all Reels and calculate prizes 
      this.setState({
        shouldSpin: false,
        isRunning: false,
@@ -34,7 +37,7 @@ class SlotMachine extends Component {
   }
 
   hasBalance() {
-    return this.state.playerBalance >= 1
+    return this.state.playerBalance >= 1;
   }
 
   isRunning() {
@@ -51,7 +54,14 @@ class SlotMachine extends Component {
     let reels = [];
     let delay = 0;
     for(let s = 0; s < size; s++) {
-      reels.push(<Reel key={s} lines={5} spinDelay={delay} shouldSpin={this.isRunning()} finishRunning={this.finishRunning}/>);
+      reels.push(<Reel 
+        key={s} 
+        lines={5} 
+        spinDelay={delay} 
+        shouldSpin={this.isRunning()} 
+        finishRunning={this.finishRunning}
+        image={ReelImage}
+        />);
       delay = delay + 500;
     }
     return reels
@@ -60,7 +70,6 @@ class SlotMachine extends Component {
 
   render() {
     const { playerBalance } = this.state
-    console.log(this.hasBalance())
 
     return (
       <React.Fragment>
