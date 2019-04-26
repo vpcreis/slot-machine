@@ -5,9 +5,11 @@
 @import './components/slotMachine/slotMachine'
 @import './components/slotMachine/debugger'
 @import './components/slotMachine/balance'
+@import './components/slotMachine/paytable'
 
-@import './typography'
+@import './table'
 @import './buttons'
+@import './typography'
 
 html
   font-size: 10px
@@ -50,8 +52,10 @@ footer
   background: darken($dark, 5%)
 
 main
+  display: flex
+  justify-content: center
   width: 100vw
 
-section
+section, aside
   display: inline-block
   padding: 60px 30px

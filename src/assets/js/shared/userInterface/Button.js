@@ -11,8 +11,15 @@ class Button extends Component {
   }
 
   render() {
-    const { hasBalance } = this.props
-    return <button className={hasBalance ? "button button--green" : "button"} onClick={this.handleClick} disabled={!hasBalance} >Start Spin!</button>
+    const { hasBalance, isRunning } = this.props
+    return (
+      <button 
+        className={(hasBalance && !isRunning)? "button button--green" : "button"}
+        onClick={this.handleClick}
+        disabled={!hasBalance || isRunning}>
+        Spin!
+      </button>
+    )
   }
 }
 

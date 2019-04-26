@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Reel from './Reel';
-// import Paytable from './Paytable';
+import Paytable from './Paytable';
 // import Debugger from './Debugger';
 import Balance from './Balance';
 import Button from '../../shared/userInterface/Button';
@@ -13,35 +13,55 @@ class SlotMachine extends Component {
     this.state = {
       isRunning: false,
       playerBalance: 5,
+      reels: this.createReel(),
     }
 
     this.startRunning = this.startRunning.bind(this);
-    this.finishRunning = this.finishRunning.bind(this);
+    this.addBalance = this.addBalance.bind(this);
   }
 
+  // static getDerivedStateFromProps(props, state){
+  //   console.log(props, state)
+  //   // return null
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState){
+    // console.log("nextProps", nextProps);
+    // console.log("nextState", nextState);
+  // }
+
   startRunning() {
-    const { playerBalance } = this.state;
-    this.setState({
-      playerBalance: (playerBalance - 1),
+    this.setState((state, props)=> ({
+      playerBalance: state.playerBalance - 1,
       isRunning: true,
-    });
+      reels: state.reels.map(r => {
+        r.shouldSpin = true
+        return r
+      }),
+    }));
+  }
+
+  addBalance(value){
+    console.log("Balance should increase by:", value);
+    this.setState((state, props)=> ({
+      playerBalance: state.playerBalance + value
+    }));
   }
 
   finishRunning(reel) {
-    console.log(reel)
-    // Need condition to get all Reels and calculate prizes 
-     this.setState({
-       shouldSpin: false,
-       isRunning: false,
-     })
+    // Need condition to get all Reels and calculate prizes
+    console.log(this.state)
+    let index = Number(reel.id.split("_")[1]);
+
+    this.setState({
+      isRunning: false,
+    });
+
+
   }
 
   hasBalance() {
     return this.state.playerBalance >= 1;
-  }
-
-  isRunning() {
-    return this.state.isRunning
   }
 
   showEarnings() {}
@@ -50,38 +70,36 @@ class SlotMachine extends Component {
 
   createReel() {
     const { size } = this.props;
+    let reels = [], delay = 0;
 
-    let reels = [];
-    let delay = 0;
     for(let s = 0; s < size; s++) {
-      reels.push(<Reel 
-        key={s} 
-        lines={5} 
-        spinDelay={delay} 
-        shouldSpin={this.isRunning()} 
-        finishRunning={this.finishRunning}
-        image={ReelImage}
-        />);
+      reels.push({
+        id:"reel_" + s,
+        lines: 5,
+        spinDelay: delay,
+        finishRunning: this.finishRunning.bind(this),
+        image: ReelImage,
+        shouldSpin: false,
+      });
+
       delay = delay + 500;
     }
     return reels
   }
 
-
   render() {
-    const { playerBalance } = this.state
-
+    const { playerBalance, reels, isRunning } = this.state
     return (
       <React.Fragment>
-        <Balance playerBalance={playerBalance} hasBalance={this.hasBalance()}/>
+        <Balance playerBalance={playerBalance} hasBalance={this.hasBalance()} addBalance={this.addBalance}/>
         <main>
           <section id="slot-machine-game">
             <div className="SlotMachine">
-              {this.createReel()}
+              {reels.map(reel => <Reel key={reel.id} {...reel} /> )}
             </div>
-            <Button startSpin={this.startRunning} hasBalance={this.hasBalance()} />
+            <Button startSpin={this.startRunning} hasBalance={this.hasBalance()} {...this.state} />
           </section>
-          {/*<Paytable />*/}
+          <Paytable />
         </main>
         {/*<Debugger />*/}
       </React.Fragment>

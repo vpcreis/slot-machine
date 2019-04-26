@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Reel extends Component {
   constructor(props){
     super(props)
-
+    console.log(props)
     const symbols = this.props.symbols || ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"];
     const currentSymbols = this.generateRandomStart(symbols);
 
@@ -21,14 +21,6 @@ class Reel extends Component {
     }
   }
 
-  static getDerivedStateFromProps(props, state){
-    // console.log("Props", props);
-    // console.log("State", state);
-    // if(props.shouldSpin){
-    //   this.startSpinning();
-    // }
-    return state
-  }
 
   componentDidUpdate(prevProps){
     if(prevProps.shouldSpin === false && this.props.shouldSpin){
@@ -76,17 +68,20 @@ class Reel extends Component {
   }
 
   finishSpinning() {
-    const { symbols, topSlot, centerSlot, bottomSlot } = this.state;
+    const {symbols, topSlot, centerSlot, bottomSlot } = this.state;
+    const {id} = this.props
+
+    this.setState({
+      isSpinning: false
+    });
 
     this.props.finishRunning({
+      id,
       top: symbols[topSlot],
       center: symbols[centerSlot],
       bottom: symbols[bottomSlot],
     });
 
-    this.setState({
-      isSpinning: false
-    });
   }
 
   setSymbolToPosition() {}
