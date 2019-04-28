@@ -18,10 +18,6 @@ import Cherry from '../../../images/Cherry.png'
 // Combination of any BAR symbols on any line 5
 
 class Paytable extends Component {
-  constructor(props){
-    super(props)
-  }
-  // "3xCHERRY", "top"
   render() {
     const { winLines: {top, center, bottom} } = this.props;
     const anySeven =  (top.name === "3x 7" || center.name === "3x 7" || bottom.name === "3x 7") ? "is-blinking" : "";
@@ -31,8 +27,6 @@ class Paytable extends Component {
     const bar =  (top.name === "BAR" || center.name === "BAR" || bottom.name === "BAR") ? "is-blinking" : "";
     const barCombination =  (top.name === "BAR COMBINATION" || center.name === "BAR COMBINATION" || bottom.name === "BAR COMBINATION") ? "is-blinking" : "";
 
-
-    console.log(this.props)
     return(
       <aside className="Paytable">
         <table>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reel from './Reel';
 import Paytable from './Paytable';
-// import Debugger from './Debugger';
+import Debugger from './Debugger';
 import Balance from './Balance';
 import Button from '../../shared/userInterface/Button';
 
@@ -29,6 +29,7 @@ class SlotMachine extends Component {
 
     this.startRunning = this.startRunning.bind(this);
     this.addBalance = this.addBalance.bind(this);
+    this.setReelValues = this.setReelValues.bind(this);
   }
 
   // static getDerivedStateFromProps(props, state){
@@ -143,7 +144,9 @@ class SlotMachine extends Component {
     }
   }
 
-  setReelValues() {}
+  setReelValues(reels) {
+    console.log(reels);
+  }
 
   createReel() {
     const { size } = this.props;
@@ -182,7 +185,7 @@ class SlotMachine extends Component {
           </section>
           <Paytable winLines={winLines}/>
         </main>
-        {/*<Debugger />*/}
+        <Debugger reelValues={this.setReelValues}/>
       </React.Fragment>
     );
   }
