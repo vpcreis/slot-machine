@@ -18,7 +18,21 @@ import Cherry from '../../../images/Cherry.png'
 // Combination of any BAR symbols on any line 5
 
 class Paytable extends Component {
+  constructor(props){
+    super(props)
+  }
+  // "3xCHERRY", "top"
   render() {
+    const { winLines: {top, center, bottom} } = this.props;
+    const anySeven =  (top.name === "3x 7" || center.name === "3x 7" || bottom.name === "3x 7") ? "is-blinking" : "";
+    const cherryOrSeven =  (top.name === "CHERRY OR 7" || center.name === "CHERRY OR 7" || bottom.name === "CHERRY OR 7") ? "is-blinking" : "";
+    const bar3x =  (top.name === "3xBAR" || center.name === "3xBAR" || bottom.name === "3xBAR") ? "is-blinking" : ""
+    const bar2x =  (top.name === "2xBAR" || center.name === "2xBAR" || bottom.name === "2xBAR") ? "is-blinking" : "";
+    const bar =  (top.name === "BAR" || center.name === "BAR" || bottom.name === "BAR") ? "is-blinking" : "";
+    const barCombination =  (top.name === "BAR COMBINATION" || center.name === "BAR COMBINATION" || bottom.name === "BAR COMBINATION") ? "is-blinking" : "";
+
+
+    console.log(this.props)
     return(
       <aside className="Paytable">
         <table>
@@ -26,7 +40,7 @@ class Paytable extends Component {
             <tr>
               <th colSpan="2">Payoffs</th>
             </tr>
-            <tr>
+            <tr className={ top.name === "3x CHERRY" ? "is-blinking" : ""}>
               <td>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
@@ -34,7 +48,7 @@ class Paytable extends Component {
               </td>
               <td><p className="Paytable__text">On top line = $2000</p></td>
             </tr>
-            <tr>
+            <tr className={ center.name === "3x CHERRY" ? "is-blinking" : ""}>
               <td>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
@@ -42,7 +56,7 @@ class Paytable extends Component {
               </td>
               <td><p className="Paytable__text">On center line = $1000</p></td>
             </tr>
-            <tr>
+            <tr className={ bottom.name === "3x CHERRY" ? "is-blinking" : ""}>
               <td>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
@@ -50,7 +64,7 @@ class Paytable extends Component {
               </td>
               <td><p className="Paytable__text">On bottom line = $4000</p></td>
             </tr>
-            <tr>
+            <tr className={anySeven}>
               <td>
                 <img className="Paytable__media" alt="Seven Symbol" src={Seven}/>
                 <img className="Paytable__media" alt="Seven Symbol" src={Seven}/>
@@ -58,14 +72,14 @@ class Paytable extends Component {
               </td>
               <td><p className="Paytable__text">On ANY line = $150</p></td>
             </tr>
-            <tr>
+            <tr className={cherryOrSeven}>
               <td>
                 <img className="Paytable__media" alt="Cherry Symbol" src={Cherry}/>
                 <img className="Paytable__media" alt="Seven Symbol" src={Seven}/>
               </td>
-              <td><p className="Paytable__text">On ANY combination of CHERRY<br/> and 7 on ANY line = $150</p></td>
+              <td><p className="Paytable__text">On ANY combination of CHERRY<br/> and 7 on ANY line = $75</p></td>
             </tr>
-            <tr>
+            <tr className={bar3x}>
               <td>
                 <img className="Paytable__media" alt="BARx3 Symbol" src={BARx3}/>
                 <img className="Paytable__media" alt="BARx3 Symbol" src={BARx3}/>
@@ -74,14 +88,14 @@ class Paytable extends Component {
               <td><p className="Paytable__text">On ANY line = $50</p></td>
             </tr>
             <tr>
-              <td>
+              <td className={bar2x}>
                 <img className="Paytable__media" alt="BAR2x Symbol" src={BAR2x}/>
                 <img className="Paytable__media" alt="BAR2x Symbol" src={BAR2x}/>
                 <img className="Paytable__media" alt="BAR2x Symbol" src={BAR2x}/>
               </td>
               <td><p className="Paytable__text">On ANY line = $20</p></td>
             </tr>
-            <tr>
+            <tr className={bar}>
               <td>
                 <img className="Paytable__media" alt="BAR Symbol" src={BAR}/>
                 <img className="Paytable__media" alt="BAR Symbol" src={BAR}/>
@@ -89,7 +103,7 @@ class Paytable extends Component {
               </td>
               <td><p className="Paytable__text">On ANY line = $10</p></td>
             </tr>
-            <tr>
+            <tr className={barCombination}>
               <td>
                 <img className="Paytable__media" alt="BAR2x Symbol" src={BAR2x}/>
                 <img className="Paytable__media" alt="BAR Symbol" src={BAR}/>
@@ -105,4 +119,3 @@ class Paytable extends Component {
  }
 
  export default Paytable;
-

@@ -2,7 +2,29 @@
 
 .SlotMachine
   display: flex
+  position: relative
   justify-content: center
   align-items: center
   text-align: center
   border: 2px solid $white
+  .SlotMachine__winMarks,
+  .SlotMachine__winMarks--center,
+  .SlotMachine__winMarks--bottom
+    animation: winline 0.5s forwards
+    position: absolute
+    top: calc(121px/2 - 5px/2)
+    left: 0
+    height: 5px
+    width: 423px
+    background-color: $red
+    opacity: 1
+  .SlotMachine__winMarks--center
+    top: calc(363px/2 - 5px/2)
+  .SlotMachine__winMarks--bottom
+    top: calc(605px/2 - 5px/2)
+
+@keyframes winline
+  0%
+    width: 0px
+  100%
+    width: 423px

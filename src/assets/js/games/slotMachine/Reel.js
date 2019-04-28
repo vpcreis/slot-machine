@@ -15,9 +15,6 @@ class Reel extends Component {
       centerSlot: currentSymbols.center,
       bottomSlot: currentSymbols.bottom,
       position: currentSymbols.position
-      // lines: this.props.lines || 5,
-      // image: this.props.image || null,
-      // spinDelay: 0
     }
   }
 
@@ -27,11 +24,6 @@ class Reel extends Component {
       this.startSpinning();
     }
   }
-
-  // getTopSlot(){}
-  // getCenterSlot(){}
-  // getBottomSlot(){}
-
 
   startSpinning(){
     const { spinningTime, position } = this.state;
@@ -91,8 +83,8 @@ class Reel extends Component {
     const last = symbols.length - 1
 
     return {
-      top: topSlot === last ? 0 : topSlot + 1, 
-      center: centerSlot === last ? 0 : centerSlot + 1, 
+      top: topSlot === last ? 0 : topSlot + 1,
+      center: centerSlot === last ? 0 : centerSlot + 1,
       bottom: bottomSlot === last ? 0 : bottomSlot + 1,
     }
   }
@@ -118,7 +110,10 @@ class Reel extends Component {
   render() {
     const { position = 0 } = this.state;
     const { image } = this.props;
-    let reelStyle = { background: 'url(' + image + ') 0px ' +  position + 'px' };
+    let reelStyle = {
+      backgroundImage: 'url(' + image + ')',
+      backgroundPosition: '0px -' +  position + 'px',
+    };
 
     return (
       <div className="Reel" style={reelStyle}>
