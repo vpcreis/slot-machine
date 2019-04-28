@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Select from '../../shared/userInterface/Select';
 
 // Component to test Outcomes from slot machine based on User data
 class Debugger extends Component {
@@ -6,88 +7,66 @@ class Debugger extends Component {
     super(props)
     console.log("Debugger Props", props)
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
 
     this.state = {
-      firstReelSymbol: "",
-      firstReelPosition: "",
-      secondReelSymbol: "",
-      secondReelPosition: "",
-      thirdReelSymbol: "",
-      thirdReelPosition: "",
+      firstReelSymbol: "3xBAR",
+      firstReelPosition: "TOP",
+      secondReelSymbol: "3xBAR",
+      secondReelPosition: "TOP",
+      thirdReelSymbol: "3xBAR",
+      thirdReelPosition: "TOP",
     }
   }
 
-  handleInputChange(event) {
+  handleSelectChange(event) {
     const { name, value } = event.target
-    this.validate(value)
-
     this.setState({
       [name]: value.toUpperCase()
     });
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault();  
     this.props.reelValues(this.state);
-    this.setState({value: ''});
   }
 
-  validate(string) {
-    if (string != "BAR"
-      || string != "CHERRY"
-      || string != "SEVEN" || string != "7"
-      || string != "3XBAR"
-      || string != "2XBAR"
-      || string != "BAR"
-    ){
-      return ""
-    }
-  }
+  // isValid(string) {
+  //   console.log(string)
+  //   if (string === "BAR"
+  //     || string === "CHERRY"
+  //     || string === "SEVEN" || string === "7"
+  //     || string === "3XBAR"
+  //     || string === "2XBAR"
+  //     || string === "BAR"
+  //   ){
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
 
   render() {
+    const symbols = ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"];
+    const positions = ["TOP", "CENTER", "BOTTOM"]
     return(
       <footer>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} >
           <div className="Debugger">
             <div className="Debugger__wrapper">
               <h3 className="Debugger__title">Set First Reel</h3>
-              <ul className="Debugger__list">
-                <li className="Debugger__list-item">
-                  <label htmlFor="firstReelSymbol" className="Debugger__label">Choose a Symbol</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="firstReelSymbol" id="firstReelSymbol" placeholder="Ex: Cherry"/>
-                </li>
-                <li>
-                  <label className="Debugger__label" htmlFor="firstReelPosition">Choose a Position</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="firstReelPosition" id="firstReelPosition" placeholder="Ex: top/center/bottom"/>
-                </li>
-              </ul>
+              <Select name="firstReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
+              <Select name="firstReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
             </div>
             <div className="Debugger__wrapper">
               <h3 className="Debugger__title">Set Second Reel</h3>
-              <ul className="Debugger__list">
-                <li className="Debugger__list-item">
-                  <label htmlFor="secondtReelSymbol" className="Debugger__label">Choose a Symbol</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="secondtReelSymbol" id="secondtReelSymbol" placeholder="Ex: Cherry"/>
-                </li>
-                <li>
-                  <label className="Debugger__label" htmlFor="secondtReelPosition">Choose a Position</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="secondtReelPosition" id="secondtReelPosition" placeholder="Ex: top/center/bottom"/>
-                </li>
-              </ul>
+              <Select name="secondReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
+              <Select name="secondReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
             </div>
             <div className="Debugger__wrapper">
-              <h3 className="Debugger__title">Set Third Reel</h3>
-              <ul className="Debugger__list">
-                <li className="Debugger__list-item">
-                  <label htmlFor="thirdtReelSymbol" className="Debugger__label">Choose a Symbol</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="thirdtReelSymbol" id="thirdtReelSymbol" placeholder="Ex: Cherry"/>
-                </li>
-                <li>
-                  <label className="Debugger__label" htmlFor="thirdtReelPosition">Choose a Position</label>
-                  <input className="Debugger__input" onChange={this.handleInputChange} type="input" name="thirdtReelPosition" id="thirdtReelPosition" placeholder="Ex: top/center/bottom"/>
-                </li>
-              </ul>
+              <h3 className="Debugger__title">Set third Reel</h3>
+              <Select name="thirdReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
+              <Select name="thirdReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
             </div>
           </div>
           <div className="Debugger__wrapper">

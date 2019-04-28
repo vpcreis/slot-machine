@@ -18,50 +18,53 @@ class Reel extends Component {
     }
   }
 
-
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     if(prevProps.shouldSpin === false && this.props.shouldSpin){
       this.startSpinning();
     }
   }
 
-  startSpinning(){
-    const { spinningTime, position } = this.state;
-    const { spinDelay } = this.props;
+  startSpinning() {
+    const { spinningTime, position, symbols } = this.state;
+    const { spinDelay, shouldLandOn = {symbol: "CHERRY", at: "CENTER"} } = this.props;
     this.setState({
       isSpinning: true
     });
+
 
     let spin,
         currentPos = position,
         interval = Math.floor(Math.random() * 75 + 50);
 
+    let landPostition = symbols.indexOf(shouldLandOn.symbol) * 121;
+    console.log(landPostition) //current -484
+
+    console.log("Current Position: ", currentPos) //"-484"
+
+    console.log("Total Spins to land: ", (spinningTime + spinDelay) / (landPostition - currentPos) )
     //Set a delay startup @spinDelay
     //Set random interval
-    setTimeout(() => {
-      spin = setInterval(()=> {
-        let currentSymbols = this.goToNextSymbol()
-        currentPos = currentPos + 121;
+    spin = setInterval(()=> {
+      let currentSymbols = this.goToNextSymbol()
+      currentPos = currentPos + 121;
 
-        this.setState({
-          topSlot: currentSymbols.top,
-          centerSlot: currentSymbols.center,
-          bottomSlot: currentSymbols.bottom,
-          position: currentPos
-        })
-      }, interval);
-
-    }, spinDelay);
+      this.setState({
+        topSlot: currentSymbols.top,
+        centerSlot: currentSymbols.center,
+        bottomSlot: currentSymbols.bottom,
+        position: currentPos
+      })
+    }, interval); // Random number
 
     setTimeout(() => {
       clearInterval(spin);
       this.finishSpinning()
-    }, spinningTime + spinDelay);
+    }, spinningTime + spinDelay); // Defaults to 2000 + 0.5 delay for each next Reel
   }
 
   finishSpinning() {
-    const {symbols, topSlot, centerSlot, bottomSlot } = this.state;
-    const {id} = this.props
+    const { symbols, topSlot, centerSlot, bottomSlot } = this.state;
+    const { id } = this.props
 
     this.setState({
       isSpinning: false
@@ -78,7 +81,7 @@ class Reel extends Component {
 
   setSymbolToPosition() {}
 
-  goToNextSymbol(){
+  goToNextSymbol() {
     const { symbols, topSlot, centerSlot, bottomSlot } = this.state;
     const last = symbols.length - 1
 

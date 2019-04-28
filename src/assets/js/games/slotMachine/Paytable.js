@@ -20,11 +20,11 @@ import Cherry from '../../../images/Cherry.png'
 class Paytable extends Component {
   render() {
     const { winLines: {top, center, bottom} } = this.props;
-    const anySeven =  (top.name === "3x 7" || center.name === "3x 7" || bottom.name === "3x 7") ? "is-blinking" : "";
-    const cherryOrSeven =  (top.name === "CHERRY OR 7" || center.name === "CHERRY OR 7" || bottom.name === "CHERRY OR 7") ? "is-blinking" : "";
-    const bar3x =  (top.name === "3xBAR" || center.name === "3xBAR" || bottom.name === "3xBAR") ? "is-blinking" : ""
-    const bar2x =  (top.name === "2xBAR" || center.name === "2xBAR" || bottom.name === "2xBAR") ? "is-blinking" : "";
-    const bar =  (top.name === "BAR" || center.name === "BAR" || bottom.name === "BAR") ? "is-blinking" : "";
+    const anySeven = (top.name === "3x 7" || center.name === "3x 7" || bottom.name === "3x 7") ? "is-blinking" : "";
+    const cherryOrSeven = (top.name === "CHERRY OR 7" || center.name === "CHERRY OR 7" || bottom.name === "CHERRY OR 7") ? "is-blinking" : "";
+    const bar3x = (top.name === "3xBAR" || center.name === "3xBAR" || bottom.name === "3xBAR") ? "is-blinking" : ""
+    const bar2x = (top.name === "2xBAR" || center.name === "2xBAR" || bottom.name === "2xBAR") ? "is-blinking" : "";
+    const bar = (top.name === "BAR" || center.name === "BAR" || bottom.name === "BAR") ? "is-blinking" : "";
     const barCombination =  (top.name === "BAR COMBINATION" || center.name === "BAR COMBINATION" || bottom.name === "BAR COMBINATION") ? "is-blinking" : "";
 
     return(
