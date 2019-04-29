@@ -4,7 +4,7 @@ class Reel extends Component {
   constructor(props){
     super(props)
     console.log(props)
-    const symbols = this.props.symbols || ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"];
+    const symbols = this.props.symbols || ["3XBAR", "BAR", "2XBAR", "7", "CHERRY"];
     const currentSymbols = this.generateRandomStart(symbols);
 
     this.state = {
@@ -37,6 +37,7 @@ class Reel extends Component {
         interval = Math.floor(Math.random() * 75 + 50);
 
     if (shouldLandOn){
+      console.log("DEBUGGER MODE ON")
       let landPostition = symbols.indexOf(shouldLandOn.symbol);
       let frames = 20
       interval = (spinningTime + spinDelay) / (frames - topSlot + landPostition - this.setSymbolToPosition(shouldLandOn.at))

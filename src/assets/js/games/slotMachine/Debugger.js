@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from '../../shared/userInterface/Select';
+import Button from '../../shared/userInterface/Button';
 
 // Component to test Outcomes from slot machine based on User data
 class Debugger extends Component {
@@ -30,7 +31,7 @@ class Debugger extends Component {
       }
     }));
 
-    console.log("After handler", this.state)
+    // console.log("After handler", this.state)
   }
 
   handleSubmit(event) {
@@ -39,10 +40,10 @@ class Debugger extends Component {
   }
 
   render() {
-    const symbols = ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"];
+    const symbols = ["3XBAR", "BAR", "2XBAR", "7", "CHERRY"];
     const positions = ["TOP", "CENTER", "BOTTOM"];
-    const { reels } = this.props;
-    console.log(this.state)
+    const { reels, hasBalance, isRunning } = this.props;
+    // console.log(this.props)
     return(
       <footer>
         <form onSubmit={this.handleSubmit} >
@@ -58,7 +59,7 @@ class Debugger extends Component {
           })}
           </div>
           <div className="Debugger__wrapper">
-            <button className="button button--green">Set Combination</button>
+            <Button text="Set fixed Spin!" hasBalance={hasBalance} isRunning={isRunning}/>
           </div>
         </form>
       </footer>

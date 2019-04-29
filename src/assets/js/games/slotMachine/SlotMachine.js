@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Reel from './Reel';
 import Paytable from './Paytable';
 import Debugger from './Debugger';
@@ -65,14 +65,14 @@ class SlotMachine extends Component {
   }
 
   addBalance(value){
-    console.log("Balance should increase by:", value);
+    // console.log("Balance should increase by:", value);
     this.setState((state, props)=> ({
       playerBalance: state.playerBalance + value
     }));
   }
 
   finishRunning(reel) {
-    console.log(reel);
+    // console.log(reel);
     // Need condition to get all Reels and calculate prizes
     this.setState((state, props)=> ({
       reels: state.reels.map(stateReel => {
@@ -92,7 +92,7 @@ class SlotMachine extends Component {
         isRunning: false
       });
       this.showEarnings();
-      console.log("SlotMachine is running? ", this.state.isRunning);
+      // console.log("SlotMachine is running? ", this.state.isRunning);
     }
   }
 
@@ -126,16 +126,16 @@ class SlotMachine extends Component {
     } else if( symbolCombination.every(el => el === "7" || el === "CHERRY") ){
       console.log("Combo 7 and CHERRY! You Won $75");
       return {name: "CHERRY OR 7", prize: 75}
-    } else if( symbolCombination.every(el => el === "3xBAR") ){
-      console.log("3xBAR! You Won $50");
-      return {name: "3xBAR", prize: 50}
-    } else if( symbolCombination.every(el => el === "2xBAR") ){
-      console.log("2xBAR! You Won $20");
-      return {name: "2xBAR", prize: 20}
+    } else if( symbolCombination.every(el => el === "3XBAR") ){
+      console.log("3XBAR! You Won $50");
+      return {name: "3XBAR", prize: 50}
+    } else if( symbolCombination.every(el => el === "2XBAR") ){
+      console.log("2XBAR! You Won $20");
+      return {name: "2XBAR", prize: 20}
     } else if( symbolCombination.every(el => el === "BAR") ){
       console.log("BAR! You Won $10");
       return {name: "BAR", prize: 10}
-    } else if( symbolCombination.every(el => el === "3xBAR" || el === "2xBAR" || el === "BAR") ){
+    } else if( symbolCombination.every(el => el === "3XBAR" || el === "2XBAR" || el === "BAR") ){
       console.log("Combination of Bars!, You Won $5");
       return {name: "BAR COMBINATION", prize: 5}
     } else {
@@ -152,7 +152,7 @@ class SlotMachine extends Component {
         return stateReel;
       })
     }));
-    console.log(this.state.reels)
+    // console.log("SET VALUES REEL", this.state.reels)
     this.startRunning();
   }
 
@@ -176,7 +176,7 @@ class SlotMachine extends Component {
   }
 
   render() {
-    const { playerBalance, reels, winLines } = this.state;
+    const { playerBalance, reels, winLines, isRunning } = this.state;
     const { top, center, bottom } = winLines;
     const reelsId = []
     const Reels = reels.map(reel => {
@@ -185,7 +185,7 @@ class SlotMachine extends Component {
     });
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Balance playerBalance={playerBalance} hasBalance={this.hasBalance()} addBalance={this.addBalance}/>
         <main>
           <section id="slot-machine-game">
@@ -195,12 +195,18 @@ class SlotMachine extends Component {
               <span className={center.name === "None" ? "" : "SlotMachine__winMarks--center"}></span>
               <span className={bottom.name === "None" ? "" : "SlotMachine__winMarks--bottom"}></span>
             </div>
-            <Button startSpin={this.startRunning} hasBalance={this.hasBalance()} {...this.state} />
+            <Button text="Random Spin!" startSpin={this.startRunning} hasBalance={this.hasBalance()} {...this.state} />
           </section>
           <Paytable winLines={winLines}/>
         </main>
-        <Debugger reelValues={this.setReelValues} reels={reelsId}/>
-      </React.Fragment>
+        <Debugger
+          reelValues={this.setReelValues}
+          reels={reelsId}
+          startSpin={this.startRunning}
+          hasBalance={this.hasBalance()}
+          isRunning={isRunning}
+        />
+      </Fragment>
     );
   }
 }
