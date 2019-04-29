@@ -39,6 +39,8 @@ header
   top: 0
   left: 0
   right 0
+  @include for-phone-only
+    padding: 30px
 
 footer
   // flex-shrink: 0
@@ -54,7 +56,15 @@ main
   display: flex
   justify-content: center
   width: 100%
+  @include for-phone-only 
+    flex-direction: column
 
 section, aside
   display: inline-block
   padding: 60px 30px
+  @include for-phone-only
+    padding: 30px
+
+#slot-machine-game
+  @include for-phone-only 
+    order: 2

@@ -31,10 +31,10 @@ class Balance extends Component {
     const { playerBalance, hasBalance } = this.props
     return(
       <header className="Balance">
-        <p>Your Balance <b className={hasBalance ? "Balance__has-balance" : "Balance__has-no-balance"}>${playerBalance}</b></p>
+        <p className="Balance__text">Your Balance <b className={hasBalance ? "Balance__has-balance" : "Balance__has-no-balance"}>${playerBalance}</b></p>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="addBalance">Add Balance: </label>
-          <input id="addBalance" name="addBalance" value={this.state.value} onChange={this.handleChange}/>
+          <label className="Balance__label" htmlFor="addBalance">Add Balance: </label>
+          <input className="Balance__input" id="addBalance" placeHolder="insert value" name="addBalance" value={this.state.value} onChange={this.handleChange}/>
           <button className="button button--yellow" disabled={this.state.value !== '' ? false : true}>Add</button>
         </form>
       </header>

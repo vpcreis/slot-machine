@@ -1,10 +1,14 @@
 @import '../../settings'
 
 .Paytable
-  //Styles
+  @include for-phone-only 
+    order: 1
+
   .Paytable__media
     width: 50px
     display: inline-block
+    @include for-phone-only 
+      width: 25px      
   .Paytable__text
     display: inline-block
     margin-block-start: 0px

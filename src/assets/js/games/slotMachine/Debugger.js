@@ -57,9 +57,9 @@ class Debugger extends Component {
               </div>
             )
           })}
-          </div>
-          <div className="Debugger__wrapper">
-            <Button text="Set fixed Spin!" hasBalance={hasBalance} isRunning={isRunning}/>
+            <div className="Debugger__wrapper">
+              <Button text="Set fixed Spin!" hasBalance={hasBalance} isRunning={isRunning}/>
+            </div>
           </div>
         </form>
       </footer>

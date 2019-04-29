@@ -1,5 +1,10 @@
 @import '../../settings'
 
+$symbol-width: 141px
+$symbol-height: 121px
+$reel-width: $symbol-width
+$reel-height: $symbol-height * 3
+
 .Reel
   display: flex
   position: relative
@@ -7,11 +12,17 @@
   flex-direction: column
   align-items: center
   text-align: center
-  width: 141px
-  height: 363px
+  width: $reel-width
+  height: $reel-height
   background-repeat: repeat-y
+  background-size: 100%
   transition: 0.1s background ease-out
   // box-shadow: inset 0px 25px 30px 0px #000000
+  @include for-phone-only
+    width: 141px
+    background-size: $reel-width - 21px
+    height: calc(363px - 60px)
+
   & + &::after
     content: ''
     position: absolute

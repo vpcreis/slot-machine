@@ -5,16 +5,16 @@ class Reel extends Component {
     super(props)
     // console.log(props)
     const symbols = this.props.symbols || ["3XBAR", "BAR", "2XBAR", "7", "CHERRY"];
-    const currentSymbols = this.generateRandomStart(symbols);
+    
 
     this.state = {
       isSpinning: false,
       symbols: symbols,
       spinningTime: this.props.spinningTime || 2000,
-      topSlot: currentSymbols.top,
-      centerSlot: currentSymbols.center,
-      bottomSlot: currentSymbols.bottom,
-      position: currentSymbols.position
+      topSlot: 0,
+      centerSlot: 1,
+      bottomSlot: 2,
+      position: 0
     }
   }
 
@@ -22,6 +22,19 @@ class Reel extends Component {
     if(prevProps.shouldSpin === false && this.props.shouldSpin){
       this.startSpinning();
     }
+  }
+
+  componentDidMount() {
+    const currentSymbols = this.generateRandomStart(this.state.symbols);
+
+    this.setState((state, props)=> ({
+      topSlot: currentSymbols.top,
+      centerSlot: currentSymbols.center,
+      bottomSlot: currentSymbols.bottom,
+      position: currentSymbols.position
+    }))
+
+    console.log(this.state)
   }
 
   startSpinning() {
@@ -45,9 +58,10 @@ class Reel extends Component {
     }
 
     //Set random interval
+
     spin = setInterval(()=> {
       let currentSymbols = this.goToNextSymbol()
-      currentPos = currentPos + 121;
+      currentPos = currentPos + this.getSymbolSize();
 
       this.setState({
         topSlot: currentSymbols.top,
@@ -78,6 +92,10 @@ class Reel extends Component {
       bottom: symbols[bottomSlot],
     });
 
+  }
+
+  getSymbolSize(){
+    return document.querySelector(".Reel").offsetHeight / 3
   }
 
   setSymbolToPosition(string) {
@@ -112,7 +130,8 @@ class Reel extends Component {
     } else {
       bottomSlot = top + 2
     }
-    return {top: top, center: center, bottom: bottomSlot, position: top * 121 }
+    console.log(this.getSymbolSize())
+    return {top: top, center: center, bottom: bottomSlot, position: top * this.getSymbolSize()}
   }
 
   isSpinning(){
@@ -120,6 +139,7 @@ class Reel extends Component {
   }
 
   render() {
+    console.log("Renders", this.state)
     const { position = 0 } = this.state;
     const { id, image } = this.props;
     let reelStyle = {

@@ -2,7 +2,24 @@
 
 .Balance
   //Styles
+.Balance__text
+  @include for-phone-only
+    font-size: 4rem
+
+.Balance__input
+  padding: 5px 10px
+  margin-bottom: 15px
+  @include for-phone-only
+    padding: 10px 15px
+    width: 100%
+.Balance__label
+  display: inline-block
+  margin-bottom: 5px
+  @include for-phone-only
+    font-size: 2rem
+
 .Balance__has-no-balance
   color: $red
 .Balance__has-balance
   color: $green
+
