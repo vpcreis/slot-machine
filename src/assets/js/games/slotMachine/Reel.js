@@ -25,24 +25,24 @@ class Reel extends Component {
   }
 
   startSpinning() {
-    const { spinningTime, position, symbols } = this.state;
-    const { spinDelay, shouldLandOn = {symbol: "CHERRY", at: "CENTER"} } = this.props;
+    const { spinningTime, position, symbols, topSlot } = this.state;
+    const { spinDelay, shouldLandOn } = this.props;
+    console.log("shouldLandOn", shouldLandOn)
     this.setState({
       isSpinning: true
     });
-
 
     let spin,
         currentPos = position,
         interval = Math.floor(Math.random() * 75 + 50);
 
-    let landPostition = symbols.indexOf(shouldLandOn.symbol) * 121;
-    console.log(landPostition) //current -484
+    if (shouldLandOn){
+      let landPostition = symbols.indexOf(shouldLandOn.symbol);
+      let frames = 20
+      interval = (spinningTime + spinDelay) / (frames - topSlot + landPostition - this.setSymbolToPosition(shouldLandOn.at))
+      console.log("TOPSLOT", topSlot)
+    }
 
-    console.log("Current Position: ", currentPos) //"-484"
-
-    console.log("Total Spins to land: ", (spinningTime + spinDelay) / (landPostition - currentPos) )
-    //Set a delay startup @spinDelay
     //Set random interval
     spin = setInterval(()=> {
       let currentSymbols = this.goToNextSymbol()
@@ -79,7 +79,15 @@ class Reel extends Component {
 
   }
 
-  setSymbolToPosition() {}
+  setSymbolToPosition(string) {
+    if (string === "CENTER"){
+      return 1
+    } else if(string === "BOTTOM"){
+      return 2
+    } else {
+      return 0
+    }
+  }
 
   goToNextSymbol() {
     const { symbols, topSlot, centerSlot, bottomSlot } = this.state;
@@ -112,14 +120,14 @@ class Reel extends Component {
 
   render() {
     const { position = 0 } = this.state;
-    const { image } = this.props;
+    const { id, image } = this.props;
     let reelStyle = {
       backgroundImage: 'url(' + image + ')',
       backgroundPosition: '0px -' +  position + 'px',
     };
 
     return (
-      <div className="Reel" style={reelStyle}>
+      <div id={id} className="Reel" style={reelStyle}>
       </div>
     );
   }

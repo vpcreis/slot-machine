@@ -145,7 +145,15 @@ class SlotMachine extends Component {
   }
 
   setReelValues(reels) {
-    console.log(reels);
+    const { select } = reels;
+    this.setState((state, props)=> ({
+      reels: state.reels.map(stateReel => {
+        stateReel.shouldLandOn = {symbol: select[stateReel.id + "_symbol"], at: select[stateReel.id + "_position"]}
+        return stateReel;
+      })
+    }));
+    console.log(this.state.reels)
+    this.startRunning();
   }
 
   createReel() {
@@ -154,7 +162,7 @@ class SlotMachine extends Component {
 
     for(let s = 0; s < size; s++) {
       reels.push({
-        id:"reel_" + s,
+        id:"reel" + s,
         lines: 5,
         spinDelay: delay,
         finishRunning: this.finishRunning.bind(this),
@@ -170,13 +178,19 @@ class SlotMachine extends Component {
   render() {
     const { playerBalance, reels, winLines } = this.state;
     const { top, center, bottom } = winLines;
+    const reelsId = []
+    const Reels = reels.map(reel => {
+      reelsId.push(reel.id)
+      return <Reel key={reel.id} {...reel} />
+    });
+
     return (
       <React.Fragment>
         <Balance playerBalance={playerBalance} hasBalance={this.hasBalance()} addBalance={this.addBalance}/>
         <main>
           <section id="slot-machine-game">
             <div className="SlotMachine">
-              {reels.map(reel => <Reel key={reel.id} {...reel} /> )}
+              {Reels}
               <span className={top.name === "None" ? "" : "SlotMachine__winMarks"}></span>
               <span className={center.name === "None" ? "" : "SlotMachine__winMarks--center"}></span>
               <span className={bottom.name === "None" ? "" : "SlotMachine__winMarks--bottom"}></span>
@@ -185,7 +199,7 @@ class SlotMachine extends Component {
           </section>
           <Paytable winLines={winLines}/>
         </main>
-        <Debugger reelValues={this.setReelValues}/>
+        <Debugger reelValues={this.setReelValues} reels={reelsId}/>
       </React.Fragment>
     );
   }

@@ -5,69 +5,57 @@ import Select from '../../shared/userInterface/Select';
 class Debugger extends Component {
   constructor(props){
     super(props)
-    console.log("Debugger Props", props)
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    let select = {}
+    this.props.reels.map(reel => {
+      select[reel + "_symbol"] = "3XBAR"
+      select[reel + "_position"] = "TOP"
+      return null
+    });
 
     this.state = {
-      firstReelSymbol: "3xBAR",
-      firstReelPosition: "TOP",
-      secondReelSymbol: "3xBAR",
-      secondReelPosition: "TOP",
-      thirdReelSymbol: "3xBAR",
-      thirdReelPosition: "TOP",
+      select
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   handleSelectChange(event) {
-    const { name, value } = event.target
-    this.setState({
-      [name]: value.toUpperCase()
-    });
+    const { name, value } = event.target;
+
+    this.setState((state, props)=> ({
+      select: {
+        ...state.select,
+        [name]: value,
+      }
+    }));
+
+    console.log("After handler", this.state)
   }
 
   handleSubmit(event) {
-    event.preventDefault();  
+    event.preventDefault();
     this.props.reelValues(this.state);
   }
 
-  // isValid(string) {
-  //   console.log(string)
-  //   if (string === "BAR"
-  //     || string === "CHERRY"
-  //     || string === "SEVEN" || string === "7"
-  //     || string === "3XBAR"
-  //     || string === "2XBAR"
-  //     || string === "BAR"
-  //   ){
-  //     return true
-  //   } else {
-  //     return false
-  //   }
-  // }
-
   render() {
     const symbols = ["3xBAR", "BAR", "2xBAR", "7", "CHERRY"];
-    const positions = ["TOP", "CENTER", "BOTTOM"]
+    const positions = ["TOP", "CENTER", "BOTTOM"];
+    const { reels } = this.props;
+    console.log(this.state)
     return(
       <footer>
         <form onSubmit={this.handleSubmit} >
           <div className="Debugger">
-            <div className="Debugger__wrapper">
-              <h3 className="Debugger__title">Set First Reel</h3>
-              <Select name="firstReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
-              <Select name="firstReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
-            </div>
-            <div className="Debugger__wrapper">
-              <h3 className="Debugger__title">Set Second Reel</h3>
-              <Select name="secondReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
-              <Select name="secondReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
-            </div>
-            <div className="Debugger__wrapper">
-              <h3 className="Debugger__title">Set third Reel</h3>
-              <Select name="thirdReelSymbol" labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
-              <Select name="thirdReelPosition" labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
-            </div>
+          { reels.map((reelId, index) => {
+            return (
+              <div key={index+1} className="Debugger__wrapper">
+                <h3 className="Debugger__title">{"Set " + (index + 1) + "th Reel"}</h3>
+                <Select name={reelId + "_symbol"} labelName="Choose a Symbol" options={symbols} handleSelectChange={this.handleSelectChange}/>
+                <Select name={reelId + "_position"} labelName="Choose a Position" options={positions} handleSelectChange={this.handleSelectChange}/>
+              </div>
+            )
+          })}
           </div>
           <div className="Debugger__wrapper">
             <button className="button button--green">Set Combination</button>
@@ -78,4 +66,4 @@ class Debugger extends Component {
   }
 }
 
- export default Debugger;
+export default Debugger;

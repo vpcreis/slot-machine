@@ -11,8 +11,8 @@ class Select extends Component {
     return (
       <Fragment>
         <div className="Debugger__list">
-          { labelName && 
-            <label htmlFor={name} className="Debugger__label">{labelName}</label> 
+          { labelName &&
+            <label htmlFor={name} className="Debugger__label">{labelName}</label>
           }
           <select id={name} name={name} className="Debugger__select" onChange={this.props.handleSelectChange}>
            {this.generateOptions()}
