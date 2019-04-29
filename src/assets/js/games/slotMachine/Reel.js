@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Reel extends Component {
   constructor(props){
     super(props)
-    console.log(props)
+    // console.log(props)
     const symbols = this.props.symbols || ["3XBAR", "BAR", "2XBAR", "7", "CHERRY"];
     const currentSymbols = this.generateRandomStart(symbols);
 
@@ -27,7 +27,7 @@ class Reel extends Component {
   startSpinning() {
     const { spinningTime, position, symbols, topSlot } = this.state;
     const { spinDelay, shouldLandOn } = this.props;
-    console.log("shouldLandOn", shouldLandOn)
+    // console.log("shouldLandOn", shouldLandOn)
     this.setState({
       isSpinning: true
     });
@@ -37,11 +37,11 @@ class Reel extends Component {
         interval = Math.floor(Math.random() * 75 + 50);
 
     if (shouldLandOn){
-      console.log("DEBUGGER MODE ON")
+      // console.log("DEBUGGER MODE ON")
       let landPostition = symbols.indexOf(shouldLandOn.symbol);
       let frames = 20
       interval = (spinningTime + spinDelay) / (frames - topSlot + landPostition - this.setSymbolToPosition(shouldLandOn.at))
-      console.log("TOPSLOT", topSlot)
+      // console.log("TOPSLOT", topSlot)
     }
 
     //Set random interval

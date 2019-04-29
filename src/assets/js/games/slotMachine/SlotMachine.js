@@ -64,7 +64,7 @@ class SlotMachine extends Component {
     }));
   }
 
-  addBalance(value){
+  addBalance(value) {
     // console.log("Balance should increase by:", value);
     this.setState((state, props)=> ({
       playerBalance: state.playerBalance + value
@@ -102,12 +102,18 @@ class SlotMachine extends Component {
 
   showEarnings() {
     const { reels } = this.state;
+    const top = this.getPrize(reels.map(el => el.top), "top"),
+          center = this.getPrize(reels.map(el => el.center), "center"),
+          bottom = this.getPrize(reels.map(el => el.bottom), "bottom"),
+          totalPrize = (top.prize + center.prize + bottom.prize)
+    // console.log(totalPrize)
     this.setState((state, props)=> ({
+      playerBalance: state.playerBalance + totalPrize,
       winLines: {
-        top: this.getPrize(reels.map(el => el.top), "top"),
-        center: this.getPrize(reels.map(el => el.center), "center"),
-        bottom: this.getPrize(reels.map(el => el.bottom), "bottom")
-      }
+        top,
+        center,
+        bottom,
+      },
     }));
 }
   getPrize(symbolCombination = [], position){
