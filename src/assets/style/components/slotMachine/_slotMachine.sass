@@ -8,24 +8,43 @@
   text-align: center
   border: 2px solid $white
   margin-bottom: 15px
+  &::before,
+  &::after 
+    content: ''
+    position: absolute
+    height: 100%
+    width: 100% 
+    z-index: 3
+  &::before
+    box-shadow: inset 0px 50px 50px -25px #000000
+  &::after
+    box-shadow: inset 0px -50px 50px -25px #000000
   .SlotMachine__winMarks,
   .SlotMachine__winMarks--center,
   .SlotMachine__winMarks--bottom
     animation: winline 0.5s forwards
     position: absolute
-    top: calc(121px/2 - 5px/2)
+    top: calc(#{$symbol-height}/2 - (5px/2))
     left: 0
     height: 5px
-    width: 423px
+    width: 100%
     background-color: $red
     opacity: 1
+    @include for-phone-only
+      top: calc(#{$symbol-height-phone}/2 - (5px/2))
+
   .SlotMachine__winMarks--center
-    top: calc(363px/2 - 5px/2)
+    top: calc((#{$reel-height}/2) - (5px/2))
+    @include for-phone-only
+      top: calc(#{$reel-height-phone}/2 - (5px/2))
+
   .SlotMachine__winMarks--bottom
-    top: calc(605px/2 - 5px/2)
+    top: calc((#{$symbol-height} * 5) / 2 - (5px/2))
+    @include for-phone-only
+      top: calc(#{$symbol-height-phone * 5}/2 - (5px/2))
 
 @keyframes winline
   0%
     width: 0px
   100%
-    width: 423px
+    width: 100%

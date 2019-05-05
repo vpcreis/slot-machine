@@ -54,11 +54,9 @@ class Reel extends Component {
       let landPostition = symbols.indexOf(shouldLandOn.symbol);
       let frames = 20
       interval = (spinningTime + spinDelay) / (frames - topSlot + landPostition - this.setSymbolToPosition(shouldLandOn.at))
-      // console.log("TOPSLOT", topSlot)
     }
 
     //Set random interval
-
     spin = setInterval(()=> {
       let currentSymbols = this.goToNextSymbol()
       currentPos = currentPos + this.getSymbolSize();
@@ -77,6 +75,8 @@ class Reel extends Component {
     }, spinningTime + spinDelay); // Defaults to 2000 + 0.5 delay for each next Reel
   }
 
+
+  
   finishSpinning() {
     const { symbols, topSlot, centerSlot, bottomSlot } = this.state;
     const { id } = this.props
@@ -95,7 +95,8 @@ class Reel extends Component {
   }
 
   getSymbolSize(){
-    return document.querySelector(".Reel").offsetHeight / 3
+    console.log("Get Size");
+    return document.querySelector(".Reel").offsetHeight / 3;
   }
 
   setSymbolToPosition(string) {

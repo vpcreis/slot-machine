@@ -1,3 +1,5 @@
+@import 'mixins'
+
 // Colors
 $dark: #282c34
 $grey: #94A3B9
@@ -13,32 +15,14 @@ $colors: (white: $white, green: $green, yellow: $yellow, red: $red, grey: $grey,
 // Hover lighten amount
 $amount: 15%
 
-//Get colors from obj
-@function color($key)
-  @if map-has-key($colors, $key)
-    @return map-get($colors, $key)
+// Reels
+$symbol-width: 141px
+$symbol-height: 121px
+$reel-width: $symbol-width
+$reel-height: $symbol-height * 3
 
-  @warn "Unknown `#{$key}` in $colors."
-  @return null
-
-
-// Mixin for media queries
-@mixin for-phone-only
-  @media (max-width: 599px)
-    @content
-
-@mixin for-tablet-portrait-up
-  @media (min-width: 600px)
-    @content
-
-@mixin for-tablet-landscape-up
-  @media (min-width: 900px)
-    @content
-
-@mixin for-desktop-up
-  @media (min-width: 1200px)
-    @content
-
-@mixin for-big-desktop-up
-  @media (min-width: 1800px)
-    @content
+// Mobile
+$symbol-height-phone: 103px
+$symbol-width-phone: 120px
+$reel-width-phone: $symbol-width-phone
+$reel-height-phone: $symbol-height-phone * 3
